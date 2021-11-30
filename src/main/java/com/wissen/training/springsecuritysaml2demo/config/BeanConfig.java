@@ -24,6 +24,7 @@ public class BeanConfig {
 
         System.out.println("file exists: "+verificationKey.exists());
         System.out.println(verificationKey.getAbsoluteFile());
+        // decode the certification
         X509Certificate x509Certificate = X509Support.decodeCertificate(verificationKey);
 
         System.out.println("x509Certificate: "+x509Certificate);
@@ -31,6 +32,7 @@ public class BeanConfig {
         assert x509Certificate != null;
         Saml2X509Credential saml2X509Credential = Saml2X509Credential.verification(x509Certificate);
 
+        // Configure the Identity Provider
         RelyingPartyRegistration relyingPartyRegistration = RelyingPartyRegistration.withRegistrationId("okta-saml")
                 .assertingPartyDetails(party-> party.
                         entityId("http://www.okta.com/exk2wnnilx1CNTqrh5d7")

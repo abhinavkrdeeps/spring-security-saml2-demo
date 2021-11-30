@@ -22,6 +22,16 @@ import java.io.File;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
+/**
+ * Service Provider (Application)
+ * Identity Provider (Okta in this case)
+ *
+ * RelyingPartyRegistration:
+ *      It Represents a configured relying party (service provider) and asserting party (Identity Provider) pair
+ *
+ *
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -31,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // Add saml2 login for all urls except /
         http.authorizeRequests(authorize->authorize.antMatchers("/").permitAll().anyRequest().authenticated()).saml2Login();
 
         Converter<HttpServletRequest,RelyingPartyRegistration> relyingPartyRegistrationConverter =
